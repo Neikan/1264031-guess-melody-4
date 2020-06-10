@@ -1,7 +1,7 @@
 # Учебный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Евгений Сладков](https://up.htmlacademy.ru/react/4/user/1264031).
-* Наставник: `Неизвестно`.
+* Наставник: [Марсель Ахметшин](https://htmlacademy.ru/profile/marsel).
 
 ---
 
