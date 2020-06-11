@@ -6,9 +6,11 @@ const Settings = {
   ERRORS_COUNT: 3
 };
 
+const root = document.querySelector(`#root`);
+
 ReactDOM.render(
     <App
       errorsCount={Settings.ERRORS_COUNT}
     />,
-    document.querySelector(`#root`)
+    root
 );
