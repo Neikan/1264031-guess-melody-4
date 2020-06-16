@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 
 const WelcomeScreen = (props) => {
-  const {errorsCount, onWelcomeButtonClick} = props;
+  const {errorsCount, onClick} = props;
 
   return (
     <section className="welcome">
@@ -11,7 +11,7 @@ const WelcomeScreen = (props) => {
         <img src="img/melody-logo.png" alt="Угадай мелодию" width="186" height="83"/>
       </div>
       <button
-        onClick={onWelcomeButtonClick}
+        onClick={onClick}
         className="welcome__button"
       >
         <span className="visually-hidden">Начать игру</span>
@@ -29,7 +29,7 @@ const WelcomeScreen = (props) => {
 
 WelcomeScreen.propTypes = {
   errorsCount: PropTypes.number.isRequired,
-  onWelcomeButtonClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 
