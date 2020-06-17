@@ -10,18 +10,18 @@ configure({
 
 
 it(`Should welcome button be pressed`, () => {
-  const onGameStart = jest.fn();
+  const handleGameStart = jest.fn();
 
   const welcomeScreen = shallow(
       <WelcomeScreen
         errorsCount={3}
-        onClick={onGameStart}
+        onGameStart={handleGameStart}
       />
   );
 
   const welcomeButton = welcomeScreen.find(`button.welcome__button`);
 
-  welcomeButton.props().onClick();
+  welcomeButton.props().onGameStart();
 
-  expect(onGameStart.mock.calls.length).toBe(1);
+  expect(handleGameStart.mock.calls.length).toBe(1);
 });

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
 
 
-const onGameStart = () => {};
+const handleGameStart = () => {};
 
 const App = (props) => {
   const {errorsCount} = props;
@@ -11,7 +11,7 @@ const App = (props) => {
   return (
     <WelcomeScreen
       errorsCount={errorsCount}
-      onClick={onGameStart}
+      onGameStart={handleGameStart}
     />
   );
 };
