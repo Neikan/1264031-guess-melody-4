@@ -11,7 +11,7 @@ const WelcomeScreen = (props) => {
         <img src="img/melody-logo.png" alt="Угадай мелодию" width="186" height="83"/>
       </div>
       <button
-        onGameStart={onGameStart}
+        onClick={onGameStart}
         className="welcome__button"
       >
         <span className="visually-hidden">Начать игру</span>
