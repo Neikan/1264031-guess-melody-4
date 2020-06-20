@@ -12,7 +12,8 @@ module.exports = {
     port: 1338,
     compress: true,
     hot: true,
-    watchContentBase: true
+    watchContentBase: true,
+    historyApiFallback: true
   },
   module: {
     rules: [
