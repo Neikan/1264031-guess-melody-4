@@ -89,15 +89,15 @@ exports[`Test ArtistQuestionScreen component GenreQuestionScreen is rendered cor
           <input
             checked={false}
             className="game__input visually-hidden"
-            id="answer-0"
+            id="song-1"
             name="answer"
             onChange={[Function]}
             type="checkbox"
-            value="answer-0"
+            value="song-1"
           />
           <label
             className="game__check"
-            htmlFor="answer-0"
+            htmlFor="song-1"
           >
             Отметить
           </label>
@@ -123,15 +123,15 @@ exports[`Test ArtistQuestionScreen component GenreQuestionScreen is rendered cor
           <input
             checked={false}
             className="game__input visually-hidden"
-            id="answer-1"
+            id="song-2"
             name="answer"
             onChange={[Function]}
             type="checkbox"
-            value="answer-1"
+            value="song-2"
           />
           <label
             className="game__check"
-            htmlFor="answer-1"
+            htmlFor="song-2"
           >
             Отметить
           </label>
@@ -157,15 +157,15 @@ exports[`Test ArtistQuestionScreen component GenreQuestionScreen is rendered cor
           <input
             checked={false}
             className="game__input visually-hidden"
-            id="answer-2"
+            id="song-3"
             name="answer"
             onChange={[Function]}
             type="checkbox"
-            value="answer-2"
+            value="song-3"
           />
           <label
             className="game__check"
-            htmlFor="answer-2"
+            htmlFor="song-3"
           >
             Отметить
           </label>
@@ -191,15 +191,15 @@ exports[`Test ArtistQuestionScreen component GenreQuestionScreen is rendered cor
           <input
             checked={false}
             className="game__input visually-hidden"
-            id="answer-3"
+            id="song-4"
             name="answer"
             onChange={[Function]}
             type="checkbox"
-            value="answer-3"
+            value="song-4"
           />
           <label
             className="game__check"
-            htmlFor="answer-3"
+            htmlFor="song-4"
           >
             Отметить
           </label>
