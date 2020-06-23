@@ -15,12 +15,12 @@ const ArtistQuestionScreen = (props) => {
     };
   };
 
-  const renderAnswer = (answer, i) => {
+  const renderAnswer = (answer) => {
     return (
-      <div key={answer.artist} className="artist">
-        <input className="artist__input visually-hidden" type="radio" name="answer" value={`answer-${i}`} id={`answer-${i}`}
+      <div key={answer.id} className="artist">
+        <input className="artist__input visually-hidden" type="radio" name="answer" value={answer.id} id={answer.id}
           onChange={handleAnswerChange(answer)} />
-        <label className="artist__name" htmlFor={`answer-${i}`}>
+        <label className="artist__name" htmlFor={answer.id}>
           <img className="artist__picture" src={answer.picture} alt={answer.artist} />
           {answer.artist}
         </label>
@@ -46,7 +46,7 @@ const ArtistQuestionScreen = (props) => {
         </div>
 
         <form className="game__artist">
-          {answers.map((answer, i) => renderAnswer(answer, i))}
+          {answers.map(renderAnswer)}
         </form>
       </section>
     </section>

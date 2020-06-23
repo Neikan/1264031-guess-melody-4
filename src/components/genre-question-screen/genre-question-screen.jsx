@@ -9,10 +9,11 @@ class GenreQuestionScreen extends PureComponent {
     super(props);
 
     this.state = {
-      answers: [false, false, false, false],
+      answers: []
     };
 
     this._handleFormSubmit = this._handleFormSubmit.bind(this);
+    this._handleAnswerChange = this._handleAnswerChange.bind(this);
   }
 
 
@@ -21,7 +22,6 @@ class GenreQuestionScreen extends PureComponent {
    * @return {Object} созданный компонент
    */
   render() {
-    const {answers: userAnswers} = this.state;
     const {answers, genre} = this.props.question;
 
     return (
@@ -34,9 +34,7 @@ class GenreQuestionScreen extends PureComponent {
             className="game__tracks"
             onSubmit={this._handleFormSubmit}
           >
-            {answers.map((answer, i) => (
-              this._renderAnswer(answer, i, userAnswers)
-            ))}
+            {answers.map(this._renderAnswer())}
 
             <button className="game__submit button" type="submit">Ответить</button>
           </form>
@@ -49,41 +47,30 @@ class GenreQuestionScreen extends PureComponent {
   /**
    * Метод, обеспечивающий изменение компонента в соответствии с ответами пользователя
    * @param {Object} answer данные ответа
-   * @param {Number} i индекс ответа
-   * @param {Object} userAnswers ответы пользователя
    * @return {Object} разметка блока ответа в соответствии с ответом пользователя
    */
-  _renderAnswer(answer, i, userAnswers) {
-    return (
-      <div key={`${i}-${answer.src}`} className="track">
-        <button className="track__button track__button--play" type="button" />
-        <div className="track__status">
-          <audio
-            src={answer.src} />
-        </div>
-        <div className="game__answer">
-          <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`}
-            id={`answer-${i}`}
-            checked={userAnswers[i]}
-            onChange={this._handleAnswerChange(userAnswers, i)} />
-          <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
-        </div>
-      </div>
-    );
-  }
+  _renderAnswer() {
+    return (answer) => {
+      const {answers: userAnswers} = this.state;
 
+      const isCheck = userAnswers.includes(answer.id);
 
-  /**
-   * Метод, обспечивающий создание помощника для выбора ответа
-   * @param {Object} userAnswers ответы пользователя
-   * @param {Number} i индекс ответа
-   * @return {Function} созданный помощник
-   */
-  _handleAnswerChange(userAnswers, i) {
-    return (evt) => {
-      this.setState({
-        answers: [...userAnswers.slice(0, i), evt.target.checked, ...userAnswers.slice(i + 1)],
-      });
+      return (
+        <div key = {answer.id} className="track">
+          <button className="track__button track__button--play" type="button" />
+          <div className="track__status">
+            <audio
+              src = {answer.src} />
+          </div>
+          <div className="game__answer">
+            <input className="game__input visually-hidden" type="checkbox" name="answer" value={answer.id}
+              id = {answer.id}
+              checked = {isCheck}
+              onChange = {this._handleAnswerChange} />
+            <label className="game__check" htmlFor={answer.id}>Отметить</label>
+          </div>
+        </div>
+      );
     };
   }
 
@@ -98,6 +85,32 @@ class GenreQuestionScreen extends PureComponent {
     const {onFormSubmit, question} = this.props;
 
     onFormSubmit(question, this.state.answers);
+  }
+
+
+  /**
+   * Метод, обспечивающий обновление состояния в соответствии с выбранными ответами
+   * @param {Object} evt событие
+   */
+  _handleAnswerChange(evt) {
+    const id = evt.target.id;
+
+    this.setState((prevState) => ({
+      answers: this._updateAnswers(prevState.answers, id)
+    }));
+  }
+
+
+  /**
+   * Метод, выполняющий обновление ответов пользователя
+   * @param {Array} prevAnswers ответы пользователя
+   * @param {string} id идентификатор изменяемого ответа
+   * @return {Array} обновленный массив ответов
+   */
+  _updateAnswers(prevAnswers, id) {
+    return prevAnswers.includes(id) ?
+      prevAnswers.filter((prevId) => prevId !== id) :
+      prevAnswers.concat(id);
   }
 }
 
