@@ -1,7 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
-import {answerGenreType, aspectType} from "../../props/prop-types.js";
+import {questionGenreType} from "../../props/prop-types.js";
 
 
 class GenreQuestionScreen extends PureComponent {
@@ -11,6 +11,8 @@ class GenreQuestionScreen extends PureComponent {
     this.state = {
       answers: [false, false, false, false],
     };
+
+    this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
 
 
@@ -19,9 +21,8 @@ class GenreQuestionScreen extends PureComponent {
    * @return {Object} созданный компонент
    */
   render() {
-    const {onAnswerChange, question} = this.props;
     const {answers: userAnswers} = this.state;
-    const {answers, genre} = question;
+    const {answers, genre} = this.props.question;
 
     return (
       <section className="game game--genre">
@@ -31,10 +32,10 @@ class GenreQuestionScreen extends PureComponent {
           <h2 className="game__title">Выберите {genre} треки</h2>
           <form
             className="game__tracks"
-            onSubmit={this._handleFormSubmit(onAnswerChange, question)}
+            onSubmit={this._handleFormSubmit}
           >
             {answers.map((answer, i) => (
-              this._changeAnswer(answer, i, userAnswers)
+              this._renderAnswer(answer, i, userAnswers)
             ))}
 
             <button className="game__submit button" type="submit">Ответить</button>
@@ -52,7 +53,7 @@ class GenreQuestionScreen extends PureComponent {
    * @param {Object} userAnswers ответы пользователя
    * @return {Object} разметка блока ответа в соответствии с ответом пользователя
    */
-  _changeAnswer(answer, i, userAnswers) {
+  _renderAnswer(answer, i, userAnswers) {
     return (
       <div key={`${i}-${answer.src}`} className="track">
         <button className="track__button track__button--play" type="button" />
@@ -88,28 +89,22 @@ class GenreQuestionScreen extends PureComponent {
 
 
   /**
-   * Метод, обеспечивающий создание помощника для отправки ответов
-   * @param {Function} onAnswerChange функция, обспечивающая выбор ответа
-   * @param {Object} question параметры вопроса
-   * @return {Function} созданный помощник
+   * Метод, обеспечивающий отправку формы
+   * @param {Object} evt событие
    */
-  _handleFormSubmit(onAnswerChange, question) {
-    return (evt) => {
-      evt.preventDefault();
-      onAnswerChange(question, this.state.answers);
-    };
+  _handleFormSubmit(evt) {
+    evt.preventDefault();
+
+    const {onFormSubmit, question} = this.props;
+
+    onFormSubmit(question, this.state.answers);
   }
 }
 
 
 GenreQuestionScreen.propTypes = {
-  onAnswerChange: PropTypes.func.isRequired,
-
-  question: PropTypes.shape({
-    answers: PropTypes.arrayOf(answerGenreType).isRequired,
-    genre: PropTypes.string.isRequired,
-    aspect: aspectType.isRequired,
-  }).isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
+  question: questionGenreType.isRequired,
 };
 
 

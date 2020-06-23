@@ -1,21 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Header from "../header/header.jsx";
-import {answerArtistType, songType, aspectType} from "../../props/prop-types.js";
+import {questionArtistType} from "../../props/prop-types.js";
 
 
 const ArtistQuestionScreen = (props) => {
-  const {onAnswerChange, question} = props;
+  const {onFormSubmit, question} = props;
   const {answers, song} = question;
 
   const handleAnswerChange = (answer) => {
     return (evt) => {
       evt.preventDefault();
-      onAnswerChange(question, answer);
+      onFormSubmit(question, answer);
     };
   };
 
-  const changeAnswer = (answer, i) => {
+  const renderAnswer = (answer, i) => {
     return (
       <div key={answer.artist} className="artist">
         <input className="artist__input visually-hidden" type="radio" name="answer" value={`answer-${i}`} id={`answer-${i}`}
@@ -46,7 +46,7 @@ const ArtistQuestionScreen = (props) => {
         </div>
 
         <form className="game__artist">
-          {answers.map((answer, i) => changeAnswer(answer, i))}
+          {answers.map((answer, i) => renderAnswer(answer, i))}
         </form>
       </section>
     </section>
@@ -55,13 +55,8 @@ const ArtistQuestionScreen = (props) => {
 
 
 ArtistQuestionScreen.propTypes = {
-  onAnswerChange: PropTypes.func.isRequired,
-
-  question: PropTypes.shape({
-    answers: PropTypes.arrayOf(answerArtistType).isRequired,
-    song: songType.isRequired,
-    aspect: aspectType.isRequired,
-  }).isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
+  question: questionArtistType.isRequired,
 };
 
 

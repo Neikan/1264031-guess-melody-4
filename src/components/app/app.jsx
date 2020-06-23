@@ -5,6 +5,7 @@ import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import {GameType} from "../../consts/common-data.js";
+import {questionArtistType, questionGenreType} from "../../props/prop-types.js";
 
 
 class App extends PureComponent {
@@ -12,78 +13,13 @@ class App extends PureComponent {
     super(props);
 
     this.state = {
-      step: -1,
+      isGameStarted: false,
+      stage: GameType.WELCOME
     };
-  }
 
-
-  /**
-   * Метод, обеспечивающий получение компонента WelcomeScreen
-   * @param {Number} errorsCount количество допустимых ошибок
-   * @return {Object} созданный компонент
-   */
-  _getWelcomeScreen(errorsCount) {
-    return (
-      <WelcomeScreen
-        errorsCount={errorsCount}
-        onGameStart={this._handleGameStart()}
-      />
-    );
-  }
-
-
-  /**
-   * Метод, обеспечивающий получение компонента ArtistQuestionScreen
-   * @param {Object} question параметры вопроса
-   * @return {Object} созданный компонент
-   */
-  _getArtistQuestionScreen(question) {
-    return (
-      <ArtistQuestionScreen
-        question={question}
-        onAnswerChange={this._handleAnswerChange()}
-      />
-    );
-  }
-
-  /**
-   * Метод, обеспечивающий получение компонента GenreQuestionScreen
-   * @param {Object} question параметры вопроса
-   * @return {Object} созданный компонент
-   */
-  _getGenreQuestionScreen(question) {
-    return (
-      <GenreQuestionScreen
-        question={question}
-        onAnswerChange={this._handleAnswerChange()}
-      />
-    );
-  }
-
-
-  /**
-   * Метод, обеспечивающий отрисовку экранов игры
-   * @return {Object} экран игры
-   */
-  _renderGameScreen() {
-    const {errorsCount, questions} = this.props;
-    const {step} = this.state;
-    const question = questions[step];
-
-    if (step === -1 || step >= questions.length) {
-      return this._getWelcomeScreen(errorsCount);
-    }
-
-    if (question) {
-      switch (question.aspect) {
-        case GameType.ARTIST:
-          return this._getArtistQuestionScreen(question);
-        case GameType.GENRE:
-          return this._getGenreQuestionScreen(question);
-      }
-    }
-
-    return null;
+    this._handleGameStart = this._handleGameStart.bind(this);
+    this._handleGameEnd = this._handleGameEnd.bind(this);
+    this._handleGameArtistStage = this._handleGameArtistStage.bind(this);
   }
 
 
@@ -92,7 +28,7 @@ class App extends PureComponent {
    * @return {Object} экран игры
    */
   render() {
-    const {questions} = this.props;
+    const {questionGenre, questionArtist} = this.props;
 
     return (
       <BrowserRouter>
@@ -100,16 +36,16 @@ class App extends PureComponent {
           <Route exact path="/">
             {this._renderGameScreen()}
           </Route>
-          <Route exact path="/artist">
-            <ArtistQuestionScreen
-              question={questions[1]}
-              onAnswerChange={() => {}}
-            />
-          </Route>
           <Route exact path="/genre">
             <GenreQuestionScreen
-              question={questions[0]}
-              onAnswerChange={() => {}}
+              question={questionGenre}
+              onFormSubmit={() => {}}
+            />
+          </Route>
+          <Route exact path="/artist">
+            <ArtistQuestionScreen
+              question={questionArtist}
+              onFormSubmit={() => {}}
             />
           </Route>
         </Switch>
@@ -119,35 +55,108 @@ class App extends PureComponent {
 
 
   /**
-   * Метод, обспечивающий создание помощника для изменения состояния при старте игры
-   * @return {Function} созданный помощник
+   * Метод, обеспечивающий отрисовку экранов игры
+   * @return {Object} экран игры
    */
-  _handleGameStart() {
-    return () => {
-      this.setState({
-        step: 0,
-      });
-    };
+  _renderGameScreen() {
+    const {isGameStarted} = this.state;
+
+    if (!isGameStarted) {
+      return this._renderWelcomeScreen();
+    }
+
+    if (isGameStarted) {
+      switch (this.state.stage) {
+        case GameType.GENRE:
+          return this._renderGenreQuestionScreen();
+        case GameType.ARTIST:
+          return this._renderArtistQuestionScreen();
+      }
+    }
+
+    return null;
   }
 
 
   /**
-   * Метод, обспечивающий создание помощника для изменения состояния при выборе ответов
-   * @return {Function} созданный помощник
+   * Метод, обеспечивающий отрисовку компонента WelcomeScreen
+   * @return {Object} созданный компонент
    */
-  _handleAnswerChange() {
-    return () => {
-      this.setState((prevState) => ({
-        step: prevState.step + 1,
-      }));
-    };
+  _renderWelcomeScreen() {
+    return (
+      <WelcomeScreen
+        errorsCount = {this.props.errorsCount}
+        onGameStart = {this._handleGameStart}
+      />
+    );
+  }
+
+
+  /**
+   * Метод, обеспечивающий отрисовку компонента GenreQuestionScreen
+   * @return {Object} созданный компонент
+   */
+  _renderGenreQuestionScreen() {
+    return (
+      <GenreQuestionScreen
+        question = {this.props.questionGenre}
+        onFormSubmit = {this._handleGameArtistStage}
+      />
+    );
+  }
+
+
+  /**
+   * Метод, обеспечивающий отрисовку компонента ArtistQuestionScreen
+   * @return {Object} созданный компонент
+   */
+  _renderArtistQuestionScreen() {
+    return (
+      <ArtistQuestionScreen
+        question = {this.props.questionArtist}
+        onFormSubmit = {this._handleGameEnd}
+      />
+    );
+  }
+
+
+  /**
+   * Метод, обспечивающий старт игры
+   */
+  _handleGameStart() {
+    this.setState({
+      isGameStarted: true,
+      stage: GameType.GENRE
+    });
+  }
+
+
+  /**
+   * Метод, обспечивающий окончание игры
+   */
+  _handleGameEnd() {
+    this.setState(() => ({
+      isGameStarted: false,
+      stage: GameType.WELCOME
+    }));
+  }
+
+
+  /**
+   * Метод, обспечивающий продолжение игры
+   */
+  _handleGameArtistStage() {
+    this.setState(() => ({
+      stage: GameType.ARTIST
+    }));
   }
 }
 
 
 App.propTypes = {
   errorsCount: PropTypes.number.isRequired,
-  questions: PropTypes.array.isRequired,
+  questionArtist: questionArtistType.isRequired,
+  questionGenre: questionGenreType.isRequired,
 };
 
 

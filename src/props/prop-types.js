@@ -21,3 +21,17 @@ export const songType = PropTypes.shape({
 
 
 export const aspectType = PropTypes.oneOf([GameType.ARTIST, GameType.GENRE]);
+
+
+export const questionArtistType = PropTypes.shape({
+  answers: PropTypes.arrayOf(answerArtistType).isRequired,
+  song: songType.isRequired,
+  aspect: aspectType.isRequired,
+});
+
+
+export const questionGenreType = PropTypes.shape({
+  answers: PropTypes.arrayOf(answerGenreType).isRequired,
+  genre: PropTypes.string.isRequired,
+  aspect: aspectType.isRequired,
+});
