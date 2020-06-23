@@ -3,17 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "description": "Учебный проект «Угадай мелодию» от HTML Academy",
-
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack-dev-server",
-
     "eslint": "eslint --ext .jsx --ext .js src/",
     "test:jest": "jest",
     "test:update": "jest --updateSnapshot",
     "test": "npm run eslint && npm run test:jest"
   },
-
   "devDependencies": {
     "@babel/core": "7.10.2",
     "@babel/preset-env": "7.10.2",
@@ -31,14 +28,13 @@
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.11.0"
   },
-
   "engines": {
     "node": "10"
   },
-  
   "dependencies": {
     "prop-types": "15.7.2",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "react-router-dom": "5.2.0"
   }
 }
