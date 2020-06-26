@@ -4,7 +4,7 @@ import {questionArtistType} from "../../props/prop-types.js";
 
 
 const ArtistQuestionScreen = (props) => {
-  const {onFormSubmit, question} = props;
+  const {onFormSubmit, question, renderPlayer} = props;
   const {answers, song} = question;
 
   const handleAnswerChange = (answer) => {
@@ -32,12 +32,7 @@ const ArtistQuestionScreen = (props) => {
       <h2 className="game__title">Кто исполняет эту песню?</h2>
       <div className="game__track">
         <div className="track">
-          <button className="track__button track__button--play" type="button" />
-          <div className="track__status">
-            <audio
-              src={song.src}
-            />
-          </div>
+          {renderPlayer(song)}
         </div>
       </div>
 
@@ -52,6 +47,7 @@ const ArtistQuestionScreen = (props) => {
 ArtistQuestionScreen.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
   question: questionArtistType.isRequired,
+  renderPlayer: PropTypes.func.isRequired
 };
 
 

@@ -37,6 +37,7 @@ export const questionGenre = {
 export const questionArtist = {
   aspect: GameType.ARTIST,
   song: {
+    id: `song-1`,
     artist: `Jim Beam`,
     src: SRC_URL,
   },

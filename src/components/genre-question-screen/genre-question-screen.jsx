@@ -47,16 +47,13 @@ class GenreQuestionScreen extends PureComponent {
   _renderAnswer() {
     return (answer) => {
       const {answers: userAnswers} = this.state;
+      const {renderPlayer} = this.props;
 
       const isCheck = userAnswers.includes(answer.id);
 
       return (
         <div key = {answer.id} className="track">
-          <button className="track__button track__button--play" type="button" />
-          <div className="track__status">
-            <audio
-              src = {answer.src} />
-          </div>
+          {renderPlayer(answer)}
           <div className="game__answer">
             <input className="game__input visually-hidden" type="checkbox" name="answer" value={answer.id}
               id = {answer.id}
@@ -113,6 +110,7 @@ class GenreQuestionScreen extends PureComponent {
 GenreQuestionScreen.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
   question: questionGenreType.isRequired,
+  renderPlayer: PropTypes.func.isRequired
 };
 
 

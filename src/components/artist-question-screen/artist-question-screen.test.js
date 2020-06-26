@@ -10,7 +10,12 @@ describe(`Test ArtistQuestionScreen component`, () => {
         <ArtistQuestionScreen
           question = {questionArtist}
           onFormSubmit = {() => {}}
-        />
+          renderPlayer = {() => {}}
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        }
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

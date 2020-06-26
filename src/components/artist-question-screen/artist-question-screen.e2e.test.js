@@ -26,6 +26,7 @@ describe(`Test e2e ArtistQuestionScreen component`, () => {
         <ArtistQuestionScreen
           question = {questionArtist}
           onFormSubmit = {handleFormSubmit}
+          renderPlayer = {() => {}}
         />
     );
 

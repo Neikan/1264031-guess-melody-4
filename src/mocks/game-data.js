@@ -5,6 +5,8 @@ const AVATAR_URL = `https://api.adorable.io/avatars/128`;
 const SRC_URL = `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`;
 
 
+export const DEFAULT_SONG_ID = `song-1`;
+
 export const questionGenre = {
   aspect: GameType.GENRE,
   genre: `rock`,
@@ -33,6 +35,7 @@ export const questionGenre = {
 export const questionArtist = {
   aspect: GameType.ARTIST,
   song: {
+    id: `song-1`,
     artist: `Jim Beam`,
     src: SRC_URL,
   },

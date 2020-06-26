@@ -10,6 +10,7 @@ describe(`Test ArtistQuestionScreen component`, () => {
       <GenreQuestionScreen
         question = {questionGenre}
         onFormSubmit = {() => {}}
+        renderPlayer = {() => {}}
       />
     ), {
       createNodeMock: () => {

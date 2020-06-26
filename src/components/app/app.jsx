@@ -7,7 +7,11 @@ import ArtistQuestionScreen from "../artist-question-screen/artist-question-scre
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import {GameType} from "../../consts/common-data.js";
 import {questionArtistType, questionGenreType} from "../../props/prop-types";
+import withAudioPlayer from "../../hoc/with-audio-player/with-audio-player";
 
+
+const GenreQuestionScreenWrapped = withAudioPlayer(GenreQuestionScreen);
+const ArtistQuestionScreenWrapped = withAudioPlayer(ArtistQuestionScreen);
 
 class App extends PureComponent {
   constructor(props) {
@@ -37,13 +41,13 @@ class App extends PureComponent {
             {this._renderGameScreen()}
           </Route>
           <Route exact path="/genre">
-            <GenreQuestionScreen
+            <GenreQuestionScreenWrapped
               question={questionGenre}
               onFormSubmit={() => {}}
             />
           </Route>
           <Route exact path="/artist">
-            <ArtistQuestionScreen
+            <ArtistQuestionScreenWrapped
               question={questionArtist}
               onFormSubmit={() => {}}
             />
@@ -93,7 +97,7 @@ class App extends PureComponent {
   _renderGenreQuestionScreen() {
     return (
       <GameScreen type={GameType.GENRE}>
-        <GenreQuestionScreen
+        <GenreQuestionScreenWrapped
           question = {this.props.questionGenre}
           onFormSubmit = {this._handleGameArtistStage}
         />
@@ -109,7 +113,7 @@ class App extends PureComponent {
   _renderArtistQuestionScreen() {
     return (
       <GameScreen type={GameType.ARTIST}>
-        <ArtistQuestionScreen
+        <ArtistQuestionScreenWrapped
           question = {this.props.questionArtist}
           onFormSubmit = {this._handleGameEnd}
         />

@@ -17,6 +17,7 @@ describe(`Test e2e GenreQuestionScreen component`, () => {
         <GenreQuestionScreen
           question = {questionGenre}
           onFormSubmit = {handleFormSubmit}
+          renderPlayer = {() => {}}
         />
     );
 
@@ -40,6 +41,7 @@ describe(`Test e2e GenreQuestionScreen component`, () => {
         <GenreQuestionScreen
           question = {questionGenre}
           onFormSubmit = {handleFormSubmit}
+          renderPlayer = {() => {}}
         />
     );
 
