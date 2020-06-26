@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Header from "../header/header.jsx";
 import {questionArtistType} from "../../props/prop-types.js";
 
 
@@ -29,26 +28,22 @@ const ArtistQuestionScreen = (props) => {
   };
 
   return (
-    <section className="game game--artist">
-      <Header />
-
-      <section className="game__screen">
-        <h2 className="game__title">Кто исполняет эту песню?</h2>
-        <div className="game__track">
-          <div className="track">
-            <button className="track__button track__button--play" type="button" />
-            <div className="track__status">
-              <audio
-                src={song.src}
-              />
-            </div>
+    <section className="game__screen">
+      <h2 className="game__title">Кто исполняет эту песню?</h2>
+      <div className="game__track">
+        <div className="track">
+          <button className="track__button track__button--play" type="button" />
+          <div className="track__status">
+            <audio
+              src={song.src}
+            />
           </div>
         </div>
+      </div>
 
-        <form className="game__artist">
-          {answers.map(renderAnswer)}
-        </form>
-      </section>
+      <form className="game__artist">
+        {answers.map(renderAnswer)}
+      </form>
     </section>
   );
 };

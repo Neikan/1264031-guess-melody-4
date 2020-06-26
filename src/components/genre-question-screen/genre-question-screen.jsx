@@ -1,6 +1,5 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import Header from "../header/header.jsx";
 import {questionGenreType} from "../../props/prop-types.js";
 
 
@@ -25,20 +24,16 @@ class GenreQuestionScreen extends PureComponent {
     const {answers, genre} = this.props.question;
 
     return (
-      <section className="game game--genre">
-        <Header />
+      <section className="game__screen">
+        <h2 className="game__title">Выберите {genre} треки</h2>
+        <form
+          className="game__tracks"
+          onSubmit={this._handleFormSubmit}
+        >
+          {answers.map(this._renderAnswer())}
 
-        <section className="game__screen">
-          <h2 className="game__title">Выберите {genre} треки</h2>
-          <form
-            className="game__tracks"
-            onSubmit={this._handleFormSubmit}
-          >
-            {answers.map(this._renderAnswer())}
-
-            <button className="game__submit button" type="submit">Ответить</button>
-          </form>
-        </section>
+          <button className="game__submit button" type="submit">Ответить</button>
+        </form>
       </section>
     );
   }

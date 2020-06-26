@@ -2,6 +2,7 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
+import GameScreen from "../game-screen/game-screen.jsx";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import {GameType} from "../../consts/common-data.js";
@@ -13,7 +14,6 @@ class App extends PureComponent {
     super(props);
 
     this.state = {
-      isGameStarted: false,
       stage: GameType.WELCOME
     };
 
@@ -59,19 +59,13 @@ class App extends PureComponent {
    * @return {Object} экран игры
    */
   _renderGameScreen() {
-    const {isGameStarted} = this.state;
-
-    if (!isGameStarted) {
-      return this._renderWelcomeScreen();
-    }
-
-    if (isGameStarted) {
-      switch (this.state.stage) {
-        case GameType.GENRE:
-          return this._renderGenreQuestionScreen();
-        case GameType.ARTIST:
-          return this._renderArtistQuestionScreen();
-      }
+    switch (this.state.stage) {
+      case GameType.WELCOME:
+        return this._renderWelcomeScreen();
+      case GameType.GENRE:
+        return this._renderGenreQuestionScreen();
+      case GameType.ARTIST:
+        return this._renderArtistQuestionScreen();
     }
 
     return null;
@@ -98,10 +92,14 @@ class App extends PureComponent {
    */
   _renderGenreQuestionScreen() {
     return (
-      <GenreQuestionScreen
-        question = {this.props.questionGenre}
-        onFormSubmit = {this._handleGameArtistStage}
-      />
+      <GameScreen
+        type={this.state.stage}
+      >
+        <GenreQuestionScreen
+          question = {this.props.questionGenre}
+          onFormSubmit = {this._handleGameArtistStage}
+        />
+      </GameScreen>
     );
   }
 
@@ -112,10 +110,14 @@ class App extends PureComponent {
    */
   _renderArtistQuestionScreen() {
     return (
-      <ArtistQuestionScreen
-        question = {this.props.questionArtist}
-        onFormSubmit = {this._handleGameEnd}
-      />
+      <GameScreen
+        type={this.state.stage}
+      >
+        <ArtistQuestionScreen
+          question = {this.props.questionArtist}
+          onFormSubmit = {this._handleGameEnd}
+        />
+      </GameScreen>
     );
   }
 
@@ -125,7 +127,6 @@ class App extends PureComponent {
    */
   _handleGameStart() {
     this.setState({
-      isGameStarted: true,
       stage: GameType.GENRE
     });
   }
@@ -136,7 +137,6 @@ class App extends PureComponent {
    */
   _handleGameEnd() {
     this.setState(() => ({
-      isGameStarted: false,
       stage: GameType.WELCOME
     }));
   }
