@@ -1,7 +1,7 @@
-import React, { Children } from "react";
+import React from "react";
 import renderer from "react-test-renderer";
 import GameScreen from "./game-screen.jsx";
-import { GameType } from "../../consts/test-data.js";
+import {GameType} from "../../consts/test-data.js";
 
 
 const children = <div className="children-component" />;

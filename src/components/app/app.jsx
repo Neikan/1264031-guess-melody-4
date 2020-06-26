@@ -93,7 +93,7 @@ class App extends PureComponent {
   _renderGenreQuestionScreen() {
     return (
       <GameScreen
-        type={this.state.stage}
+        type={GameType.GENRE}
       >
         <GenreQuestionScreen
           question = {this.props.questionGenre}
@@ -111,7 +111,7 @@ class App extends PureComponent {
   _renderArtistQuestionScreen() {
     return (
       <GameScreen
-        type={this.state.stage}
+        type={GameType.ARTIST}
       >
         <ArtistQuestionScreen
           question = {this.props.questionArtist}
