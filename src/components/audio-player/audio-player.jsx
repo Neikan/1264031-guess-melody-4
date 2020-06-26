@@ -1,6 +1,11 @@
-import React, {PureComponent, Fragment, createRef} from "react";
+import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 
+
+const Status = {
+  PLAY: `play`,
+  PAUSE: `pause`
+};
 
 export default class AudioPlayer extends PureComponent {
   constructor(props) {
@@ -55,11 +60,12 @@ export default class AudioPlayer extends PureComponent {
 
   render() {
     const {isLoading, isPlaying} = this.state;
+    const btnMarkupClass = isPlaying ? Status.PAUSE : Status.PLAY;
 
     return (
-      <Fragment>
+      <>
         <button
-          className={`track__button track__button--${isPlaying ? `pause` : `play`}`}
+          className={`track__button track__button--${btnMarkupClass}`}
           type="button"
           disabled={isLoading}
           onClick={this._handlePlayButtonClick()}
@@ -69,7 +75,7 @@ export default class AudioPlayer extends PureComponent {
             ref={this._audioRef}
           />
         </div>
-      </Fragment>
+      </>
     );
   }
 
