@@ -6,7 +6,7 @@ import GameScreen from "../game-screen/game-screen.jsx";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import {GameType} from "../../consts/common-data.js";
-import {questionArtistType, questionGenreType} from "../../props/prop-types.js";
+import {questionArtistType, questionGenreType} from "../../props/prop-types";
 
 
 class App extends PureComponent {
@@ -92,9 +92,7 @@ class App extends PureComponent {
    */
   _renderGenreQuestionScreen() {
     return (
-      <GameScreen
-        type={GameType.GENRE}
-      >
+      <GameScreen type={GameType.GENRE}>
         <GenreQuestionScreen
           question = {this.props.questionGenre}
           onFormSubmit = {this._handleGameArtistStage}
@@ -110,9 +108,7 @@ class App extends PureComponent {
    */
   _renderArtistQuestionScreen() {
     return (
-      <GameScreen
-        type={GameType.ARTIST}
-      >
+      <GameScreen type={GameType.ARTIST}>
         <ArtistQuestionScreen
           question = {this.props.questionArtist}
           onFormSubmit = {this._handleGameEnd}

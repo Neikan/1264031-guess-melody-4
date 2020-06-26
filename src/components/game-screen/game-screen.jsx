@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {GameType} from "../../consts/common-data";
+import {aspectType} from "../../props/prop-types";
 
 
 const GameScreen = (props) => {
@@ -33,7 +33,7 @@ const GameScreen = (props) => {
 
 
 GameScreen.propTypes = {
-  type: PropTypes.oneOf([GameType.ARTIST, GameType.GENRE]).isRequired,
+  type: aspectType.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
