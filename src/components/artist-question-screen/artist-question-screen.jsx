@@ -4,13 +4,13 @@ import {questionArtistType} from "../../props/prop-types.js";
 
 
 const ArtistQuestionScreen = (props) => {
-  const {onFormSubmit, question, renderPlayer} = props;
+  const {onGameEnd, question, renderPlayer} = props;
   const {answers, song} = question;
 
   const handleAnswerChange = (answer) => {
     return (evt) => {
       evt.preventDefault();
-      onFormSubmit(question, answer);
+      onGameEnd(question, answer);
     };
   };
 
@@ -45,7 +45,7 @@ const ArtistQuestionScreen = (props) => {
 
 
 ArtistQuestionScreen.propTypes = {
-  onFormSubmit: PropTypes.func.isRequired,
+  onGameEnd: PropTypes.func.isRequired,
   question: questionArtistType.isRequired,
   renderPlayer: PropTypes.func.isRequired
 };

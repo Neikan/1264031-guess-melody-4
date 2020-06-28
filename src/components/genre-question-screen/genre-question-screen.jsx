@@ -52,13 +52,13 @@ class GenreQuestionScreen extends PureComponent {
       const isCheck = userAnswers.includes(answer.id);
 
       return (
-        <div key = {answer.id} className="track">
+        <div key={answer.id} className="track">
           {renderPlayer(answer)}
           <div className="game__answer">
             <input className="game__input visually-hidden" type="checkbox" name="answer" value={answer.id}
-              id = {answer.id}
-              checked = {isCheck}
-              onChange = {this._handleAnswerChange} />
+              id={answer.id}
+              checked={isCheck}
+              onChange={this._handleAnswerChange} />
             <label className="game__check" htmlFor={answer.id}>Отметить</label>
           </div>
         </div>
@@ -74,9 +74,9 @@ class GenreQuestionScreen extends PureComponent {
   _handleFormSubmit(evt) {
     evt.preventDefault();
 
-    const {onFormSubmit, question} = this.props;
+    const {onGameArtistStage, question} = this.props;
 
-    onFormSubmit(question, this.state.answers);
+    onGameArtistStage(question, this.state.answers);
   }
 
 
@@ -108,7 +108,7 @@ class GenreQuestionScreen extends PureComponent {
 
 
 GenreQuestionScreen.propTypes = {
-  onFormSubmit: PropTypes.func.isRequired,
+  onGameArtistStage: PropTypes.func.isRequired,
   question: questionGenreType.isRequired,
   renderPlayer: PropTypes.func.isRequired
 };

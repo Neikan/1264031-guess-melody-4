@@ -43,13 +43,13 @@ class App extends PureComponent {
           <Route exact path="/genre">
             <GenreQuestionScreenWrapped
               question={questionGenre}
-              onFormSubmit={() => {}}
+              onGameArtistStage={() => {}}
             />
           </Route>
           <Route exact path="/artist">
             <ArtistQuestionScreenWrapped
               question={questionArtist}
-              onFormSubmit={() => {}}
+              onGameEnd={() => {}}
             />
           </Route>
         </Switch>
@@ -83,8 +83,8 @@ class App extends PureComponent {
   _renderWelcomeScreen() {
     return (
       <WelcomeScreen
-        errorsCount = {this.props.errorsCount}
-        onGameStart = {this._handleGameStart}
+        errorsCount={this.props.errorsCount}
+        onGameStart={this._handleGameStart}
       />
     );
   }
@@ -96,10 +96,12 @@ class App extends PureComponent {
    */
   _renderGenreQuestionScreen() {
     return (
-      <GameScreen type={GameType.GENRE}>
+      <GameScreen
+        type={GameType.GENRE}
+      >
         <GenreQuestionScreenWrapped
-          question = {this.props.questionGenre}
-          onFormSubmit = {this._handleGameArtistStage}
+          question={this.props.questionGenre}
+          onGameArtistStage={this._handleGameArtistStage}
         />
       </GameScreen>
     );
@@ -112,10 +114,12 @@ class App extends PureComponent {
    */
   _renderArtistQuestionScreen() {
     return (
-      <GameScreen type={GameType.ARTIST}>
+      <GameScreen
+        type={GameType.ARTIST}
+      >
         <ArtistQuestionScreenWrapped
-          question = {this.props.questionArtist}
-          onFormSubmit = {this._handleGameEnd}
+          question={this.props.questionArtist}
+          onGameEnd={this._handleGameEnd}
         />
       </GameScreen>
     );
