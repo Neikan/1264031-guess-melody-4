@@ -9,15 +9,17 @@ describe(`Test AudioPlayer component`, () => {
   test(`AudioPlayer is rendered correctly`, () => {
     const {song} = questionArtist;
 
-    const tree = renderer.create(<AudioPlayer
-      isPlaying = {false}
-      onPlayButtonClick = {() => {}}
-      src = {song.src}
-    />, {
-      createNodeMock: () => {
-        return {};
-      }
-    }).toJSON();
+    const tree = renderer.create(
+        <AudioPlayer
+          id={song.id}
+          src = {song.src}
+          isPlaying = {false}
+          onPlayTrack = {() => {}}
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        }).toJSON();
 
     expect(tree).toMatchSnapshot();
   });

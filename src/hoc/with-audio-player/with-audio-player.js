@@ -1,6 +1,6 @@
 import React, {PureComponent} from "react";
 import AudioPlayer from "../../components/audio-player/audio-player.jsx";
-import {DEFAULT_SONG_ID} from "../../mocks/game-data.js";
+import {DEFAULT_TRACK_ID} from "../../mocks/game-data.js";
 
 
 const withActivePlayer = (Component) => {
@@ -9,30 +9,35 @@ const withActivePlayer = (Component) => {
       super(props);
 
       this.state = {
-        activePlayerId: DEFAULT_SONG_ID,
+        activeTrackId: DEFAULT_TRACK_ID,
       };
+
+      this._handlePlayTrack = this._handlePlayTrack.bind(this);
     }
+
 
     render() {
       return <Component
         {...this.props}
 
-        renderPlayer={({src, id}) => {
-          return (
-            <AudioPlayer
-              src = {src}
-              isPlaying = {id === this.state.activePlayerId}
-              onPlayButtonClick = {this.handlePlayButtonClick(id)}
-            />
-          );
-        }}
+        renderPlayer={({src, id}) => this._renderPlayer(src, id)}
       />;
     }
 
 
-    handlePlayButtonClick(id) {
-      return () => this.setState({
-        activePlayerId: this.state.activePlayerId === id ? `` : id
+    _renderPlayer(src, id) {
+      return <AudioPlayer
+        id={id}
+        src={src}
+        isPlaying={id === this.state.activeTrackId}
+        onPlayTrack={this._handlePlayTrack}
+      />;
+    }
+
+
+    _handlePlayTrack(id) {
+      this.setState({
+        activeTrackId: this.state.activeTrackId === id ? `` : id
       });
     }
   }
