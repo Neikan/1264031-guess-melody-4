@@ -1,5 +1,4 @@
 const AVATAR_URL = `https://api.adorable.io/avatars/128`;
-const SRC_URL = `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`;
 
 
 export const GameType = {
@@ -15,19 +14,19 @@ export const questionGenre = {
   answers: [
     {
       id: `song-1`,
-      src: SRC_URL,
+      src: `https://upload.wikimedia.org/wikipedia/commons/5/5b/Demoiselle_Dner_-_01_-_Des_ttes_trop_pleines.ogg`,
       genre: `rock`,
     }, {
       id: `song-2`,
-      src: SRC_URL,
+      src: `https://upload.wikimedia.org/wikipedia/commons/1/1c/Demoiselle_Dner_-_02_-_Autodtermination.ogg`,
       genre: `blues`,
     }, {
       id: `song-3`,
-      src: SRC_URL,
+      src: `https://upload.wikimedia.org/wikipedia/commons/d/d6/Demoiselle_Dner_-_06_-_300.ogg`,
       genre: `jazz`,
     }, {
       id: `song-4`,
-      src: SRC_URL,
+      src: `https://upload.wikimedia.org/wikipedia/commons/7/76/Demoiselle_Dner_-_08_-_Une_trs_mauvaise_ide.ogg`,
       genre: `rock`,
     }
   ]
@@ -37,8 +36,9 @@ export const questionGenre = {
 export const questionArtist = {
   aspect: GameType.ARTIST,
   song: {
+    id: `song-1`,
     artist: `Jim Beam`,
-    src: SRC_URL,
+    src: `https://upload.wikimedia.org/wikipedia/commons/6/6a/The_Rope_River_Blues_Band_-_02_-_The_Vistas_Missing_Views.ogg`,
   },
   answers: [
     {

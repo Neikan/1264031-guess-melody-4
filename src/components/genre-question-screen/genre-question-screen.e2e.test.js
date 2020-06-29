@@ -12,11 +12,12 @@ configure({
 
 describe(`Test e2e GenreQuestionScreen component`, () => {
   test(`When user answers genre question form is not sent`, () => {
-    const handleFormSubmit = jest.fn();
+    const handleGameArtistStage = jest.fn();
     const genreQuestion = shallow(
         <GenreQuestionScreen
-          question = {questionGenre}
-          onFormSubmit = {handleFormSubmit}
+          question={questionGenre}
+          onGameArtistStage={handleGameArtistStage}
+          renderPlayer={() => {}}
         />
     );
 
@@ -26,20 +27,21 @@ describe(`Test e2e GenreQuestionScreen component`, () => {
       preventDefault: formSendPrevention,
     });
 
-    expect(handleFormSubmit).toHaveBeenCalledTimes(1);
+    expect(handleGameArtistStage).toHaveBeenCalledTimes(1);
     expect(formSendPrevention).toHaveBeenCalledTimes(1);
   });
 
 
   test(`User answer passed to callback is consistent with "userAnswer" prop`, () => {
-    const handleFormSubmit = jest.fn((...args) => [...args]);
+    const handleGameArtistStage = jest.fn((...args) => [...args]);
     const userAnswerId = questionGenre.answers[1].id;
     const userAnswerChoices = [false, true, false, false];
 
     const genreQuestion = mount(
         <GenreQuestionScreen
-          question = {questionGenre}
-          onFormSubmit = {handleFormSubmit}
+          question={questionGenre}
+          onGameArtistStage={handleGameArtistStage}
+          renderPlayer={() => {}}
         />
     );
 
@@ -49,9 +51,9 @@ describe(`Test e2e GenreQuestionScreen component`, () => {
       preventDefault() {}
     });
 
-    expect(handleFormSubmit).toHaveBeenCalledTimes(1);
-    expect(handleFormSubmit.mock.calls[0][0]).toMatchObject(questionGenre);
-    expect(handleFormSubmit.mock.calls[0][0].answers[1].id).toBe(userAnswerId);
+    expect(handleGameArtistStage).toHaveBeenCalledTimes(1);
+    expect(handleGameArtistStage.mock.calls[0][0]).toMatchObject(questionGenre);
+    expect(handleGameArtistStage.mock.calls[0][0].answers[1].id).toBe(userAnswerId);
 
     expect(
         genreQuestion.find(`input`).map((input) => input.prop(`checked`))

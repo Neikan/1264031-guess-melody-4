@@ -20,20 +20,21 @@ describe(`Test e2e ArtistQuestionScreen component`, () => {
         data-object from which this answer was created`, () => {
     const userAnswer = questionArtist.answers[0];
 
-    const handleFormSubmit = jest.fn();
+    const handleGameEnd = jest.fn();
 
     const screen = shallow(
         <ArtistQuestionScreen
-          question = {questionArtist}
-          onFormSubmit = {handleFormSubmit}
+          question={questionArtist}
+          onGameEnd={handleGameEnd}
+          renderPlayer={() => {}}
         />
     );
 
     screen.find(`input`).at(0).simulate(`change`, mockEvent);
 
-    expect(handleFormSubmit).toHaveBeenCalledTimes(1);
+    expect(handleGameEnd).toHaveBeenCalledTimes(1);
 
-    expect(handleFormSubmit.mock.calls[0][0]).toMatchObject(questionArtist);
-    expect(handleFormSubmit.mock.calls[0][1]).toMatchObject(userAnswer);
+    expect(handleGameEnd.mock.calls[0][0]).toMatchObject(questionArtist);
+    expect(handleGameEnd.mock.calls[0][1]).toMatchObject(userAnswer);
   });
 });

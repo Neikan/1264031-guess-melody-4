@@ -8,9 +8,14 @@ describe(`Test ArtistQuestionScreen component`, () => {
   test(`ArtistQuestionScreen is rendered correctly`, () => {
     const tree = renderer.create(
         <ArtistQuestionScreen
-          question = {questionArtist}
-          onFormSubmit = {() => {}}
-        />
+          question={questionArtist}
+          onGameEnd={() => {}}
+          renderPlayer={() => {}}
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        }
     ).toJSON();
 
     expect(tree).toMatchSnapshot();

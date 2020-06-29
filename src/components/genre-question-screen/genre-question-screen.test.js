@@ -8,8 +8,9 @@ describe(`Test ArtistQuestionScreen component`, () => {
   test(`GenreQuestionScreen is rendered correctly`, () => {
     const tree = renderer.create((
       <GenreQuestionScreen
-        question = {questionGenre}
-        onFormSubmit = {() => {}}
+        question={questionGenre}
+        onGameArtistStage={() => {}}
+        renderPlayer={() => {}}
       />
     ), {
       createNodeMock: () => {
