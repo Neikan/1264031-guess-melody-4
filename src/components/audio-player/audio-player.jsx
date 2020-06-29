@@ -14,8 +14,7 @@ export default class AudioPlayer extends PureComponent {
     this._audioRef = createRef();
 
     this.state = {
-      isLoading: true,
-      id: this.props.id
+      isLoading: true
     };
 
     this._handlePlay = this._handlePlay.bind(this);
@@ -71,7 +70,7 @@ export default class AudioPlayer extends PureComponent {
 
 
   _handlePlay() {
-    this.props.onPlayTrack(this.state.id);
+    this.props.onPlayTrack(this.props.id);
   }
 }
 
