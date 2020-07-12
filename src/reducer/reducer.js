@@ -1,28 +1,26 @@
-import {GameType, GameConfig} from "../consts/common-data";
-import {getAnswerIsCorrect, updateState, getStateWithErrors, initialState} from "./utils-ans-data";
+import {GameType} from "../consts/common-data";
+import {getAnswerIsCorrect, getStateWithErrors, initialState, getGameStage} from "./utils-ans-data";
 
 
 const ActionType = {
-  STAGE_WELCOME: GameType.WELCOME,
-  STAGE_ARTIST: GameType.ARTIST,
-  STAGE_GENRE: GameType.GENRE,
-  ERRORS_INCREMENT: GameConfig.ERRORS_INCREMENT
+  ERRORS_INCREMENT: `increment errors`,
+  CHANGE_GAME_SCREEN: `change game screen`
 };
 
 
 const ActionCreator = {
   goToWelcomeScreen: () => ({
-    type: ActionType.STAGE_WELCOME,
+    type: ActionType.CHANGE_GAME_SCREEN,
     payload: GameType.WELCOME,
   }),
 
   goToArtistScreen: () => ({
-    type: ActionType.STAGE_ARTIST,
+    type: ActionType.CHANGE_GAME_SCREEN,
     payload: GameType.ARTIST,
   }),
 
   goToGenreScreen: () => ({
-    type: ActionType.STAGE_GENRE,
+    type: ActionType.CHANGE_GAME_SCREEN,
     payload: GameType.GENRE,
   }),
 
@@ -35,20 +33,8 @@ const ActionCreator = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.STAGE_WELCOME:
-      return updateState(state, {
-        stage: GameType.WELCOME,
-      });
-
-    case ActionType.STAGE_ARTIST:
-      return updateState(state, {
-        stage: GameType.ARTIST,
-      });
-
-    case ActionType.STAGE_GENRE:
-      return updateState(state, {
-        stage: GameType.GENRE,
-      });
+    case ActionType.CHANGE_GAME_SCREEN:
+      return getGameStage(state, action);
 
     case ActionType.ERRORS_INCREMENT:
       return getStateWithErrors(state, action);

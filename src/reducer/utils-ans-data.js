@@ -6,13 +6,8 @@ const questionGenreCountAnswers = questionGenre.answers.filter(
     (answer) => answer.genre === questionGenre.genre).length;
 
 
-export const initialState = {
-  stage: GameType.WELCOME,
-  questionGenre,
-  questionGenreCountAnswers,
-  questionArtist,
-  errorsAnswers: 0,
-  errorsMaxCount: GameConfig.ERRORS_COUNT
+const updateState = (a, b) => {
+  return Object.assign({}, a, b);
 };
 
 
@@ -28,6 +23,16 @@ const isGenreAnswerCorrect = (question, userAnswers) => {
         return (question.answers[getIndex(question.answers, userAnswer)].genre === question.genre);
       })
   );
+};
+
+
+export const initialState = {
+  stage: GameType.WELCOME,
+  questionGenre,
+  questionGenreCountAnswers,
+  questionArtist,
+  errorsAnswers: 0,
+  errorsMaxCount: GameConfig.ERRORS_COUNT
 };
 
 
@@ -58,9 +63,11 @@ export const getAnswerIsCorrect = (question, userAnswer) => {
 };
 
 
-export const updateState = (a, b) => {
-  return Object.assign({}, a, b);
-};
-
-
 export const getIndex = (items, id) => items.findIndex((item) => item.id === id);
+
+
+export const getGameStage = (state, action) => {
+  return updateState(state, {
+    stage: action.payload,
+  });
+};

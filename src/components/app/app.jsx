@@ -89,7 +89,7 @@ class App extends PureComponent {
    * @return {Object} созданный компонент
    */
   _renderGenreQuestionScreen() {
-    const {questionGenre, handleGenreErrorsIncrement} = this.props;
+    const {questionGenre, handleGameArtistStage} = this.props;
 
     return (
       <GameScreen
@@ -97,7 +97,7 @@ class App extends PureComponent {
       >
         <GenreQuestionScreenWrapped
           question={questionGenre}
-          onGameArtistStage={handleGenreErrorsIncrement}
+          onGameArtistStage={handleGameArtistStage}
         />
       </GameScreen>
     );
@@ -109,7 +109,7 @@ class App extends PureComponent {
    * @return {Object} созданный компонент
    */
   _renderArtistQuestionScreen() {
-    const {questionArtist, handleArtistErrorsIncrement} = this.props;
+    const {questionArtist, handleGameEnd} = this.props;
 
     return (
       <GameScreen
@@ -117,7 +117,7 @@ class App extends PureComponent {
       >
         <ArtistQuestionScreenWrapped
           question={questionArtist}
-          onGameEnd={handleArtistErrorsIncrement}
+          onGameEnd={handleGameEnd}
         />
       </GameScreen>
     );
@@ -132,8 +132,8 @@ App.propTypes = {
   stage: PropTypes.string.isRequired,
 
   handleGameStart: PropTypes.func.isRequired,
-  handleGenreErrorsIncrement: PropTypes.func.isRequired,
-  handleArtistErrorsIncrement: PropTypes.func.isRequired
+  handleGameArtistStage: PropTypes.func.isRequired,
+  handleGameEnd: PropTypes.func.isRequired
 };
 
 
@@ -151,12 +151,12 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.goToGenreScreen());
   },
 
-  handleGenreErrorsIncrement(question, answer) {
+  handleGameArtistStage(question, answer) {
     dispatch(ActionCreator.incrementErrors(question, answer));
     dispatch(ActionCreator.goToArtistScreen());
   },
 
-  handleArtistErrorsIncrement(question, answer) {
+  handleGameEnd(question, answer) {
     dispatch(ActionCreator.incrementErrors(question, answer));
     dispatch(ActionCreator.goToWelcomeScreen());
   },
