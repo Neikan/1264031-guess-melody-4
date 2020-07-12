@@ -32,7 +32,7 @@ export const initialState = {
   questionGenreCountAnswers,
   questionArtist,
   errorsAnswers: 0,
-  errorsMaxCount: GameConfig.ERRORS_COUNT
+  errorsMaxCount: GameConfig.ERRORS_MAX_COUNT
 };
 
 

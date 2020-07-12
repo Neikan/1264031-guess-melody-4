@@ -3,7 +3,7 @@ import {getAnswerIsCorrect, getStateWithErrors, initialState, getGameStage} from
 
 
 const ActionType = {
-  ERRORS_INCREMENT: `increment errors`,
+  INCREMENT_ERRORS: `increment errors`,
   CHANGE_GAME_SCREEN: `change game screen`
 };
 
@@ -25,7 +25,7 @@ const ActionCreator = {
   }),
 
   incrementErrors: (question, userAnswer) => ({
-    type: ActionType.ERRORS_INCREMENT,
+    type: ActionType.INCREMENT_ERRORS,
     payload: getAnswerIsCorrect(question, userAnswer) ? 0 : 1
   })
 };
@@ -36,7 +36,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_GAME_SCREEN:
       return getGameStage(state, action);
 
-    case ActionType.ERRORS_INCREMENT:
+    case ActionType.INCREMENT_ERRORS:
       return getStateWithErrors(state, action);
 
     default:

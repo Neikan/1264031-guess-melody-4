@@ -2,6 +2,7 @@ import React from "react";
 import {configure, shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import WelcomeScreen from "./welcome-screen";
+import {GameConfig} from "../../consts/test-data";
 
 
 configure({
@@ -9,12 +10,12 @@ configure({
 });
 
 
-it(`Should welcome button be pressed`, () => {
+test(`Should welcome button be pressed`, () => {
   const handleGameStart = jest.fn();
 
   const welcomeScreen = shallow(
       <WelcomeScreen
-        errorsCount={3}
+        errorsMaxCount={GameConfig.ERRORS_MAX_COUNT}
         onGameStart={handleGameStart}
       />
   );

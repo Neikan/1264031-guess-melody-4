@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import {aspectType} from "../../props/prop-types";
 import Errors from "../errors/errors.jsx";
-import {connect} from "react-redux";
 
 
 const GameScreen = (props) => {
@@ -36,7 +36,7 @@ GameScreen.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired,
+  ]).isRequired
 };
 
 

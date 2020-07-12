@@ -8,6 +8,11 @@ export const GameType = {
 };
 
 
+export const GameConfig = {
+  ERRORS_MAX_COUNT: 3
+};
+
+
 export const questionGenre = {
   aspect: GameType.GENRE,
   genre: `rock`,
@@ -43,15 +48,15 @@ export const questionArtist = {
   answers: [
     {
       id: `artist-1`,
-      picture: `${AVATAR_URL}/0`,
+      picture: `${AVATAR_URL}/A`,
       artist: `John Snow`,
     }, {
       id: `artist-2`,
-      picture: `${AVATAR_URL}/1`,
+      picture: `${AVATAR_URL}/AB`,
       artist: `Jack Daniels`,
     }, {
       id: `artist-3`,
-      picture: `${AVATAR_URL}/2`,
+      picture: `${AVATAR_URL}/AC`,
       artist: `Jim Beam`,
     }
   ]

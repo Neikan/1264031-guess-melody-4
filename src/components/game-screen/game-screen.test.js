@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import GameScreen from "./game-screen.jsx";
+import {GameScreen} from "./game-screen.jsx";
 import {GameType} from "../../consts/test-data.js";
 
 
@@ -10,7 +10,8 @@ describe(`Test GameScreen component`, () => {
   test(`GameScreen component is created and rendered correctly with type GameType.ARTIST`, () => {
     const tree = renderer.create(
         <GameScreen
-          type = {GameType.ARTIST}
+          type={GameType.ARTIST}
+          errorsAnswers={3}
         >
           {children}
         </GameScreen>
@@ -24,6 +25,7 @@ describe(`Test GameScreen component`, () => {
     const tree = renderer.create(
         <GameScreen
           type = {GameType.GENRE}
+          errorsAnswers={3}
         >
           {children}
         </GameScreen>

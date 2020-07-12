@@ -6,6 +6,5 @@ export const GameType = {
 
 
 export const GameConfig = {
-  ERRORS_COUNT: 3,
-  ERRORS_INCREMENT: `increment errors`
+  ERRORS_MAX_COUNT: 3
 };
