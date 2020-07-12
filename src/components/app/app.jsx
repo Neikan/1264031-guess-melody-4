@@ -8,25 +8,14 @@ import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.
 import {GameType} from "../../consts/common-data.js";
 import {questionArtistType, questionGenreType} from "../../props/prop-types";
 import withAudioPlayer from "../../hoc/with-audio-player/with-audio-player";
+import {ActionCreator} from "../../reducer/reducer.js";
+import {connect} from "react-redux";
 
 
 const GenreQuestionScreenWrapped = withAudioPlayer(GenreQuestionScreen);
 const ArtistQuestionScreenWrapped = withAudioPlayer(ArtistQuestionScreen);
 
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      stage: GameType.WELCOME
-    };
-
-    this._handleGameStart = this._handleGameStart.bind(this);
-    this._handleGameEnd = this._handleGameEnd.bind(this);
-    this._handleGameArtistStage = this._handleGameArtistStage.bind(this);
-  }
-
-
   /**
    * Метод, обспечивающий изменение экранов игры
    * @return {Object} экран игры
@@ -63,16 +52,19 @@ class App extends PureComponent {
    * @return {Object} экран игры
    */
   _renderGameScreen() {
-    switch (this.state.stage) {
+    switch (this.props.stage) {
       case GameType.WELCOME:
         return this._renderWelcomeScreen();
+
       case GameType.GENRE:
         return this._renderGenreQuestionScreen();
+
       case GameType.ARTIST:
         return this._renderArtistQuestionScreen();
-    }
 
-    return null;
+      default:
+        return null;
+    }
   }
 
 
@@ -81,10 +73,12 @@ class App extends PureComponent {
    * @return {Object} созданный компонент
    */
   _renderWelcomeScreen() {
+    const {errorsCount, handleGameStart} = this.props;
+
     return (
       <WelcomeScreen
-        errorsCount={this.props.errorsCount}
-        onGameStart={this._handleGameStart}
+        errorsCount={errorsCount}
+        onGameStart={handleGameStart}
       />
     );
   }
@@ -95,13 +89,15 @@ class App extends PureComponent {
    * @return {Object} созданный компонент
    */
   _renderGenreQuestionScreen() {
+    const {questionGenre, handleGameArtistStage} = this.props;
+
     return (
       <GameScreen
         type={GameType.GENRE}
       >
         <GenreQuestionScreenWrapped
-          question={this.props.questionGenre}
-          onGameArtistStage={this._handleGameArtistStage}
+          question={questionGenre}
+          onGameArtistStage={handleGameArtistStage}
         />
       </GameScreen>
     );
@@ -113,46 +109,18 @@ class App extends PureComponent {
    * @return {Object} созданный компонент
    */
   _renderArtistQuestionScreen() {
+    const {questionArtist, handleGameEnd} = this.props;
+
     return (
       <GameScreen
         type={GameType.ARTIST}
       >
         <ArtistQuestionScreenWrapped
-          question={this.props.questionArtist}
-          onGameEnd={this._handleGameEnd}
+          question={questionArtist}
+          onGameEnd={handleGameEnd}
         />
       </GameScreen>
     );
-  }
-
-
-  /**
-   * Метод, обспечивающий старт игры
-   */
-  _handleGameStart() {
-    this.setState({
-      stage: GameType.GENRE
-    });
-  }
-
-
-  /**
-   * Метод, обспечивающий окончание игры
-   */
-  _handleGameEnd() {
-    this.setState(() => ({
-      stage: GameType.WELCOME
-    }));
-  }
-
-
-  /**
-   * Метод, обспечивающий продолжение игры
-   */
-  _handleGameArtistStage() {
-    this.setState(() => ({
-      stage: GameType.ARTIST
-    }));
   }
 }
 
@@ -161,7 +129,35 @@ App.propTypes = {
   errorsCount: PropTypes.number.isRequired,
   questionArtist: questionArtistType.isRequired,
   questionGenre: questionGenreType.isRequired,
+  stage: PropTypes.string.isRequired,
+  handleGameStart: PropTypes.func.isRequired,
+  handleGameEnd: PropTypes.func.isRequired,
+  handleGameArtistStage: PropTypes.func.isRequired
 };
 
 
-export default App;
+const mapStateToProps = (state) => ({
+  stage: state.stage,
+  questionArtist: state.questionArtist,
+  questionGenre: state.questionGenre,
+  errorsCount: state.errorsMaxCount,
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+  handleGameStart() {
+    dispatch(ActionCreator.goToGenreScreen());
+  },
+
+  handleGameEnd() {
+    dispatch(ActionCreator.goToWelcomeScreen());
+  },
+
+  handleGameArtistStage() {
+    dispatch(ActionCreator.goToArtistScreen());
+  }
+});
+
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);
