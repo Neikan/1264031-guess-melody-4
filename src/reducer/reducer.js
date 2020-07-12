@@ -1,21 +1,12 @@
 import {GameType, GameConfig} from "../consts/common-data";
-import {questionGenre, questionArtist} from "./../mocks/game-data.js";
-import {updateState} from "../utils/utils";
-
-
-const initialState = {
-  stage: GameType.WELCOME,
-  questionGenre,
-  questionArtist,
-  errorsAnswers: 0,
-  errorsMaxCount: GameConfig.ERRORS_COUNT
-};
+import {getAnswerIsCorrect, updateState, getStateWithErrors, initialState} from "./utils-ans-data";
 
 
 const ActionType = {
   STAGE_WELCOME: GameType.WELCOME,
   STAGE_ARTIST: GameType.ARTIST,
   STAGE_GENRE: GameType.GENRE,
+  ERRORS_INCREMENT: GameConfig.ERRORS_INCREMENT
 };
 
 
@@ -33,6 +24,11 @@ const ActionCreator = {
   goToGenreScreen: () => ({
     type: ActionType.STAGE_GENRE,
     payload: GameType.GENRE,
+  }),
+
+  incrementErrors: (question, userAnswer) => ({
+    type: ActionType.ERRORS_INCREMENT,
+    payload: getAnswerIsCorrect(question, userAnswer) ? 0 : 1
   })
 };
 
@@ -53,6 +49,9 @@ const reducer = (state = initialState, action) => {
       return updateState(state, {
         stage: GameType.GENRE,
       });
+
+    case ActionType.ERRORS_INCREMENT:
+      return getStateWithErrors(state, action);
 
     default:
       return state;

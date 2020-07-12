@@ -73,11 +73,11 @@ class App extends PureComponent {
    * @return {Object} созданный компонент
    */
   _renderWelcomeScreen() {
-    const {errorsCount, handleGameStart} = this.props;
+    const {errorsMaxCount, handleGameStart} = this.props;
 
     return (
       <WelcomeScreen
-        errorsCount={errorsCount}
+        errorsMaxCount={errorsMaxCount}
         onGameStart={handleGameStart}
       />
     );
@@ -89,7 +89,7 @@ class App extends PureComponent {
    * @return {Object} созданный компонент
    */
   _renderGenreQuestionScreen() {
-    const {questionGenre, handleGameArtistStage} = this.props;
+    const {questionGenre, handleGenreErrorsIncrement} = this.props;
 
     return (
       <GameScreen
@@ -97,7 +97,7 @@ class App extends PureComponent {
       >
         <GenreQuestionScreenWrapped
           question={questionGenre}
-          onGameArtistStage={handleGameArtistStage}
+          onGameArtistStage={handleGenreErrorsIncrement}
         />
       </GameScreen>
     );
@@ -109,7 +109,7 @@ class App extends PureComponent {
    * @return {Object} созданный компонент
    */
   _renderArtistQuestionScreen() {
-    const {questionArtist, handleGameEnd} = this.props;
+    const {questionArtist, handleArtistErrorsIncrement} = this.props;
 
     return (
       <GameScreen
@@ -117,7 +117,7 @@ class App extends PureComponent {
       >
         <ArtistQuestionScreenWrapped
           question={questionArtist}
-          onGameEnd={handleGameEnd}
+          onGameEnd={handleArtistErrorsIncrement}
         />
       </GameScreen>
     );
@@ -126,13 +126,14 @@ class App extends PureComponent {
 
 
 App.propTypes = {
-  errorsCount: PropTypes.number.isRequired,
+  errorsMaxCount: PropTypes.number.isRequired,
   questionArtist: questionArtistType.isRequired,
   questionGenre: questionGenreType.isRequired,
   stage: PropTypes.string.isRequired,
+
   handleGameStart: PropTypes.func.isRequired,
-  handleGameEnd: PropTypes.func.isRequired,
-  handleGameArtistStage: PropTypes.func.isRequired
+  handleGenreErrorsIncrement: PropTypes.func.isRequired,
+  handleArtistErrorsIncrement: PropTypes.func.isRequired
 };
 
 
@@ -140,7 +141,8 @@ const mapStateToProps = (state) => ({
   stage: state.stage,
   questionArtist: state.questionArtist,
   questionGenre: state.questionGenre,
-  errorsCount: state.errorsMaxCount,
+  errorsMaxCount: state.errorsMaxCount,
+  errorsAnswers: state.errorsAnswers
 });
 
 
@@ -149,13 +151,15 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.goToGenreScreen());
   },
 
-  handleGameEnd() {
-    dispatch(ActionCreator.goToWelcomeScreen());
+  handleGenreErrorsIncrement(question, answer) {
+    dispatch(ActionCreator.incrementErrors(question, answer));
+    dispatch(ActionCreator.goToArtistScreen());
   },
 
-  handleGameArtistStage() {
-    dispatch(ActionCreator.goToArtistScreen());
-  }
+  handleArtistErrorsIncrement(question, answer) {
+    dispatch(ActionCreator.incrementErrors(question, answer));
+    dispatch(ActionCreator.goToWelcomeScreen());
+  },
 });
 
 
