@@ -25,12 +25,10 @@ const ActionCreator = {
     payload: GameType.WELCOME,
   }),
 
-
   goToArtistScreen: () => ({
     type: ActionType.STAGE_ARTIST,
     payload: GameType.ARTIST,
   }),
-
 
   goToGenreScreen: () => ({
     type: ActionType.STAGE_GENRE,
@@ -50,7 +48,6 @@ const reducer = (state = initialState, action) => {
       return updateState(state, {
         stage: GameType.ARTIST,
       });
-
 
     case ActionType.STAGE_GENRE:
       return updateState(state, {
