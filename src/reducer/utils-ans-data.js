@@ -11,18 +11,20 @@ const updateState = (a, b) => {
 };
 
 
-const isArtistAnswerCorrect = (question, userAnswer) => {
-  return userAnswer.artist === question.song.artist;
-};
+const isArtistAnswerCorrect = (question, userAnswer) => userAnswer.artist === question.song.artist;
 
 
 const isGenreAnswerCorrect = (question, userAnswers) => {
-  return (
-    userAnswers.length === initialState.questionGenreCountAnswers
-      && userAnswers.every((userAnswer) => {
-        return (question.answers[getIndex(question.answers, userAnswer)].genre === question.genre);
-      })
+  const isCountCorrect = userAnswers.length === initialState.questionGenreCountAnswers;
+
+  const isQualityCorrect = () => userAnswers.every(
+      (userAnswer) => (question.answers.find(
+          (answer) => answer.id === userAnswer)
+              .genre === question.genre
+      )
   );
+
+  return isCountCorrect && isQualityCorrect();
 };
 
 
@@ -61,9 +63,6 @@ export const getAnswerIsCorrect = (question, userAnswer) => {
       return false;
   }
 };
-
-
-export const getIndex = (items, id) => items.findIndex((item) => item.id === id);
 
 
 export const getGameStage = (state, action) => {
