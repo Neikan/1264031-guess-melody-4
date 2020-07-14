@@ -6,7 +6,7 @@ describe(`Get initial state`, () => {
     expect(reducer(void 0, {})).toEqual({
       stage: GameType.WELCOME,
       questionGenre,
-      questionGenreCountAnswers: 2,
+      countCorrectGenreAnswers: 2,
       questionArtist,
       errorsAnswers: 0,
       errorsMaxCount: GameConfig.ERRORS_MAX_COUNT
