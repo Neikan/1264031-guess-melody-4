@@ -1,17 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
 import App from "./components/app/app.jsx";
-import {GameConfig} from "./consts/common-data.js";
-import {questionGenre, questionArtist} from "./mocks/game-data.js";
+import {reducer} from "./reducer/reducer.js";
 
 
 const root = document.querySelector(`#root`);
 
+
+const store = createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+);
+
 ReactDOM.render(
-    <App
-      errorsCount={GameConfig.ERRORS_COUNT}
-      questionGenre = {questionGenre}
-      questionArtist = {questionArtist}
-    />,
+    <Provider store={store}>
+      <App />
+    </Provider>,
     root
 );

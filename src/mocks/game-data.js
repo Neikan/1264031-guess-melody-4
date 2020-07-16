@@ -41,15 +41,15 @@ export const questionArtist = {
   answers: [
     {
       id: `artist-1`,
-      picture: `${AVATAR_URL}/${Math.random()}`,
+      picture: `${AVATAR_URL}/A`,
       artist: `John Snow`,
     }, {
       id: `artist-2`,
-      picture: `${AVATAR_URL}/${Math.random()}`,
+      picture: `${AVATAR_URL}/AB`,
       artist: `Jack Daniels`,
     }, {
       id: `artist-3`,
-      picture: `${AVATAR_URL}/${Math.random()}`,
+      picture: `${AVATAR_URL}/AC`,
       artist: `Jim Beam`,
     }
   ]
