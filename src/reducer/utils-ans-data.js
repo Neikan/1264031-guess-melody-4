@@ -17,14 +17,23 @@ const isArtistAnswerCorrect = (question, userAnswer) => userAnswer.artist === qu
 const isGenreAnswerCorrect = (question, userAnswers) => {
   const isCountCorrect = userAnswers.length === initialState.countCorrectGenreAnswers;
 
-  const isQualityCorrect = () => userAnswers.every(
-      (userAnswer) => (question.answers.find(
-          (answer) => answer.id === userAnswer)
-              .genre === question.genre
-      )
-  );
+  const {answers, genre} = question;
 
-  return isCountCorrect && isQualityCorrect();
+  if (isCountCorrect) {
+    const isAllAnswersCorrect = userAnswers.every((userAnswer) => {
+      const answer = answers.find((ans) => ans.id === userAnswer);
+
+      if (answer) {
+        return answer.genre === genre;
+      }
+
+      return false;
+    });
+
+    return isAllAnswersCorrect;
+  }
+
+  return false;
 };
 
 
