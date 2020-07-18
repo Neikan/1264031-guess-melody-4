@@ -7,12 +7,13 @@ import ArtistQuestionScreen from "../artist-question-screen/artist-question-scre
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import {GameType} from "../../consts/common-data.js";
 import {questionArtistType, questionGenreType} from "../../props/prop-types";
-import withAudioPlayer from "../../hoc/with-active-player/with-active-player";
 import {ActionCreator} from "../../reducer/reducer.js";
 import {connect} from "react-redux";
+import withAudioPlayer from "../../hoc/with-active-player/with-active-player";
+import withUserAnswer from "../../hoc/with-user-answer/with-user-answer.js";
 
 
-const GenreQuestionScreenWrapped = withAudioPlayer(GenreQuestionScreen);
+const GenreQuestionScreenWrapped = withAudioPlayer(withUserAnswer(GenreQuestionScreen));
 const ArtistQuestionScreenWrapped = withAudioPlayer(ArtistQuestionScreen);
 
 class App extends PureComponent {
