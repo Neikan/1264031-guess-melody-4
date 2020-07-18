@@ -7,7 +7,7 @@ import ArtistQuestionScreen from "../artist-question-screen/artist-question-scre
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import {GameType} from "../../consts/common-data.js";
 import {questionArtistType, questionGenreType} from "../../props/prop-types";
-import withAudioPlayer from "../../hoc/with-audio-player/with-audio-player";
+import withAudioPlayer from "../../hoc/with-active-player/with-active-player";
 import {ActionCreator} from "../../reducer/reducer.js";
 import {connect} from "react-redux";
 
