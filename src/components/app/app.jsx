@@ -179,8 +179,7 @@ App.propTypes = {
 
   onGameStart: PropTypes.func.isRequired,
   onGameArtistStage: PropTypes.func.isRequired,
-  onGameEnd: PropTypes.func.isRequired,
-  onTryAgain: PropTypes.func.isRequired
+  onGameEnd: PropTypes.func.isRequired
 };
 
 
