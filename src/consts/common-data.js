@@ -2,6 +2,8 @@ export const GameType = {
   WELCOME: `welcome`,
   ARTIST: `artist`,
   GENRE: `genre`,
+  WIN: `win`,
+  GAME_OVER: `game over`
 };
 
 

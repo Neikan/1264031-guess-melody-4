@@ -23,11 +23,7 @@ const isGenreAnswerCorrect = (question, userAnswers) => {
     const isAllAnswersCorrect = userAnswers.every((userAnswer) => {
       const answer = answers.find((ans) => ans.id === userAnswer);
 
-      if (answer) {
-        return answer.genre === genre;
-      }
-
-      return false;
+      return answer ? answer.genre === genre : false;
     });
 
     return isAllAnswersCorrect;
@@ -50,10 +46,6 @@ export const initialState = {
 export const getStateWithErrors = (state, action) => {
   const errors = state.errorsAnswers + action.payload;
 
-  if (errors >= state.errorsMaxCount) {
-    return updateState({}, initialState);
-  }
-
   return updateState(state, {
     errorsAnswers: errors
   });
@@ -75,11 +67,9 @@ export const getAnswerIsCorrect = (question, userAnswer) => {
 
 
 export const getGameStage = (state, action) => {
-  if (action.payload === GameType.WELCOME) {
-    return initialState;
-  }
-
-  return updateState(state, {
-    stage: action.payload,
-  });
+  return action.payload === GameType.WELCOME
+    ? initialState
+    : updateState(state, {
+      stage: action.payload,
+    });
 };

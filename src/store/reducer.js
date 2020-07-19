@@ -24,6 +24,11 @@ const ActionCreator = {
     payload: GameType.GENRE,
   }),
 
+  goToWinScreen: () => ({
+    type: ActionType.CHANGE_GAME_SCREEN,
+    payload: GameType.WIN,
+  }),
+
   incrementErrors: (question, userAnswer) => ({
     type: ActionType.INCREMENT_ERRORS,
     payload: getAnswerIsCorrect(question, userAnswer) ? 0 : 1

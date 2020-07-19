@@ -84,6 +84,14 @@ describe(`Action creators work correctly`, () => {
   });
 
 
+  test(`Action creator for going to WinScreen returns correct action`, () => {
+    expect(ActionCreator.goToWinScreen()).toEqual({
+      type: ActionType.CHANGE_GAME_SCREEN,
+      payload: GameType.WIN,
+    });
+  });
+
+
   test(`Action creator for incrementing mistake returns action with 0 payload if answer for artist is correct`, () => {
     expect(ActionCreator.incrementErrors({
       aspect: `artist`,

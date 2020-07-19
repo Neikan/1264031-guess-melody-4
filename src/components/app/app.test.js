@@ -80,4 +80,52 @@ describe(`Test App component`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+
+  test(`WinScreen is created and rendered correctly`, () => {
+    const store = mockStore({
+      stage: GameType.WIN,
+      errorsAnswers: 0,
+      errorsMaxCount: GameConfig.ERRORS_MAX_COUNT,
+      questionGenre,
+      questionArtist
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App />)
+        </Provider>, {
+          createNodeMock: () => {
+            return {};
+          }
+        }
+    )
+    .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+
+  test(`GameOverScreen is created and rendered correctly`, () => {
+    const store = mockStore({
+      stage: GameType.GENRE,
+      errorsAnswers: 3,
+      errorsMaxCount: GameConfig.ERRORS_MAX_COUNT,
+      questionGenre,
+      questionArtist
+    });
+
+    const tree = renderer.create(
+        <Provider store={store}>
+          <App />)
+        </Provider>, {
+          createNodeMock: () => {
+            return {};
+          }
+        }
+    )
+    .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
 });
