@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 
 const WinScreen = (props) => {
-  const {questionsCount, errorsAnswers, onTryAgain} = props;
+  const {questionsCount, errorsAnswers, onGameStart} = props;
   const correctlyQuestionsCount = questionsCount - errorsAnswers;
 
   return (
@@ -16,7 +16,7 @@ const WinScreen = (props) => {
       <button
         className="replay"
         type="button"
-        onClick={onTryAgain}
+        onClick={onGameStart}
       >
         Сыграть ещё раз
       </button>
@@ -28,7 +28,7 @@ const WinScreen = (props) => {
 WinScreen.propTypes = {
   questionsCount: PropTypes.number.isRequired,
   errorsAnswers: PropTypes.number.isRequired,
-  onTryAgain: PropTypes.func.isRequired,
+  onGameStart: PropTypes.func.isRequired,
 };
 
 

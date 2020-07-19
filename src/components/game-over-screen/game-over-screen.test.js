@@ -6,7 +6,7 @@ test(`Should GameOverScreen render correctly`, () => {
   const tree = renderer
     .create(
         <GameOverScreen
-          onTryAgain={() => {}}
+          onGameStart={() => {}}
         />
     ).toJSON();
 

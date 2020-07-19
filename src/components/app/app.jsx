@@ -141,14 +141,14 @@ class App extends PureComponent {
    * @return {Object} созданный компонент
    */
   _renderWinScreen() {
-    const {errorsAnswers, onTryAgain, questionArtist, questionGenre} = this.props;
+    const {errorsAnswers, onGameStart, questionArtist, questionGenre} = this.props;
     const questionsCount = [questionArtist, questionGenre].length;
 
     return (
       <WinScreen
         questionsCount={questionsCount}
         errorsAnswers={errorsAnswers}
-        onTryAgain={onTryAgain}
+        onGameStart={onGameStart}
       />
     );
   }
@@ -159,11 +159,11 @@ class App extends PureComponent {
    * @return {Object} созданный компонент
    */
   _renderGameOverScreen() {
-    const {onTryAgain} = this.props;
+    const {onGameStart} = this.props;
 
     return (
       <GameOverScreen
-        onTryAgain={onTryAgain}
+        onGameStart={onGameStart}
       />
     );
   }
@@ -206,10 +206,6 @@ const mapDispatchToProps = (dispatch) => ({
   onGameEnd(question, answer) {
     dispatch(ActionCreator.incrementErrors(question, answer));
     dispatch(ActionCreator.goToWinScreen());
-  },
-
-  onTryAgain() {
-    dispatch(ActionCreator.goToWelcomeScreen());
   }
 });
 

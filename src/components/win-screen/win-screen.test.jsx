@@ -10,7 +10,7 @@ describe(`Should WinScreen render correctly`, () => {
             <WinScreen
               questionsCount={3}
               errorsAnswers={0}
-              onTryAgain={() => {}}
+              onGameStart={() => {}}
             />
         ).toJSON();
 
@@ -23,7 +23,7 @@ describe(`Should WinScreen render correctly`, () => {
             <WinScreen
               questionsCount={3}
               errorsAnswers={1}
-              onTryAgain={() => {}}
+              onGameStart={() => {}}
             />
         ).toJSON();
 
@@ -38,7 +38,7 @@ describe(`Should WinScreen render correctly`, () => {
             <WinScreen
               questionsCount={2}
               errorsAnswers={0}
-              onTryAgain={() => {}}
+              onGameStart={() => {}}
             />
         ).toJSON();
 
@@ -51,7 +51,7 @@ describe(`Should WinScreen render correctly`, () => {
             <WinScreen
               questionsCount={2}
               errorsAnswers={1}
-              onTryAgain={() => {}}
+              onGameStart={() => {}}
             />
         ).toJSON();
 

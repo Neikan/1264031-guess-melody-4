@@ -9,11 +9,6 @@ const ActionType = {
 
 
 const ActionCreator = {
-  goToWelcomeScreen: () => ({
-    type: ActionType.CHANGE_GAME_SCREEN,
-    payload: GameType.WELCOME,
-  }),
-
   goToArtistScreen: () => ({
     type: ActionType.CHANGE_GAME_SCREEN,
     payload: GameType.ARTIST,

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 
 const GameOverScreen = (props) => {
-  const {onTryAgain} = props;
+  const {onGameStart} = props;
 
   return (
     <section className="result">
@@ -15,7 +15,7 @@ const GameOverScreen = (props) => {
       <button
         className="replay"
         type="button"
-        onClick={onTryAgain}
+        onClick={onGameStart}
       >
         Попробовать ещё раз
       </button>
@@ -25,7 +25,7 @@ const GameOverScreen = (props) => {
 
 
 GameOverScreen.propTypes = {
-  onTryAgain: PropTypes.func.isRequired,
+  onGameStart: PropTypes.func.isRequired,
 };
 
 
