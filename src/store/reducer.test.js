@@ -17,13 +17,25 @@ describe(`Get initial state`, () => {
 
 describe(`Action creators work correctly`, () => {
   test(`Reducer should change game screen`, () => {
-    expect(reducer({
-      stage: GameType.WELCOME
-    }, {
+    const defaultState = {
+      stage: GameType.WELCOME,
+      questionGenre,
+      countCorrectGenreAnswers: 2,
+      questionArtist,
+      errorsAnswers: 0,
+      errorsMaxCount: GameConfig.ERRORS_MAX_COUNT
+    };
+
+    expect(reducer(defaultState, {
       type: ActionType.CHANGE_GAME_SCREEN,
       payload: GameType.GENRE
     })).toEqual({
-      stage: GameType.GENRE
+      stage: GameType.GENRE,
+      questionGenre,
+      countCorrectGenreAnswers: 2,
+      questionArtist,
+      errorsAnswers: 0,
+      errorsMaxCount: GameConfig.ERRORS_MAX_COUNT
     });
 
     expect(reducer({
