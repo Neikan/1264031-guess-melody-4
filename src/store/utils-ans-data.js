@@ -68,8 +68,9 @@ export const getAnswerIsCorrect = (question, userAnswer) => {
 
 export const getGameStage = (state, action) => {
   return action.payload === GameType.GENRE
-    ? updateState(initialState, {
+    ? updateState(state, {
       stage: action.payload,
+      errorsAnswers: 0
     })
     : updateState(state, {
       stage: action.payload,
