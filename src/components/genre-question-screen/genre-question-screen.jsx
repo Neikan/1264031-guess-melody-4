@@ -4,31 +4,21 @@ import {questionGenreType} from "../../props/prop-types.js";
 
 
 class GenreQuestionScreen extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      answers: []
-    };
-
-    this._handleFormSubmit = this._handleFormSubmit.bind(this);
-    this._handleAnswerChange = this._handleAnswerChange.bind(this);
-  }
-
-
   /**
    * Метод, обеспечивающий отрисовку компонента GenreQuestionScreen
    * @return {Object} созданный компонент
    */
   render() {
-    const {answers, genre} = this.props.question;
+    const {onFormSubmit, question} = this.props;
+
+    const {answers, genre} = question;
 
     return (
       <section className="game__screen">
         <h2 className="game__title">Выберите {genre} треки</h2>
         <form
           className="game__tracks"
-          onSubmit={this._handleFormSubmit}
+          onSubmit={onFormSubmit}
         >
           {answers.map(this._renderAnswer())}
 
@@ -46,8 +36,7 @@ class GenreQuestionScreen extends PureComponent {
    */
   _renderAnswer() {
     return (answer) => {
-      const {answers: userAnswers} = this.state;
-      const {renderPlayer} = this.props;
+      const {answers: userAnswers, renderPlayer, onAnswerChange} = this.props;
 
       const isCheck = userAnswers.includes(answer.id);
 
@@ -58,59 +47,22 @@ class GenreQuestionScreen extends PureComponent {
             <input className="game__input visually-hidden" type="checkbox" name="answer" value={answer.id}
               id={answer.id}
               checked={isCheck}
-              onChange={this._handleAnswerChange} />
+              onChange={() => onAnswerChange(answer.id)} />
             <label className="game__check" htmlFor={answer.id}>Отметить</label>
           </div>
         </div>
       );
     };
   }
-
-
-  /**
-   * Метод, обеспечивающий отправку формы
-   * @param {Object} evt событие
-   */
-  _handleFormSubmit(evt) {
-    evt.preventDefault();
-
-    const {onGameArtistStage, question} = this.props;
-
-    onGameArtistStage(question, this.state.answers);
-  }
-
-
-  /**
-   * Метод, обспечивающий обновление состояния в соответствии с выбранными ответами
-   * @param {Object} evt событие
-   */
-  _handleAnswerChange(evt) {
-    const id = evt.target.id;
-
-    this.setState((prevState) => ({
-      answers: this._updateAnswers(prevState.answers, id)
-    }));
-  }
-
-
-  /**
-   * Метод, выполняющий обновление ответов пользователя
-   * @param {Array} prevAnswers ответы пользователя
-   * @param {string} id идентификатор изменяемого ответа
-   * @return {Array} обновленный массив ответов
-   */
-  _updateAnswers(prevAnswers, id) {
-    return prevAnswers.includes(id) ?
-      prevAnswers.filter((prevId) => prevId !== id) :
-      prevAnswers.concat(id);
-  }
 }
 
 
 GenreQuestionScreen.propTypes = {
-  onGameArtistStage: PropTypes.func.isRequired,
   question: questionGenreType.isRequired,
-  renderPlayer: PropTypes.func.isRequired
+  answers: PropTypes.arrayOf(PropTypes.string).isRequired,
+  renderPlayer: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
+  onAnswerChange: PropTypes.func.isRequired
 };
 
 

@@ -7,8 +7,8 @@
     "build": "webpack --mode production",
     "start": "webpack-dev-server",
     "eslint": "eslint --ext .jsx --ext .js src/",
-    "test:jest": "jest",
-    "test:update": "jest --updateSnapshot",
+    "test:jest": "jest --coverage",
+    "test:update": "jest --updateSnapshot --coverage",
     "test": "npm run eslint && npm run test:jest"
   },
   "devDependencies": {

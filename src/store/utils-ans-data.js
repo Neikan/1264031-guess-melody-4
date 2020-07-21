@@ -17,14 +17,19 @@ const isArtistAnswerCorrect = (question, userAnswer) => userAnswer.artist === qu
 const isGenreAnswerCorrect = (question, userAnswers) => {
   const isCountCorrect = userAnswers.length === initialState.countCorrectGenreAnswers;
 
-  const isQualityCorrect = () => userAnswers.every(
-      (userAnswer) => (question.answers.find(
-          (answer) => answer.id === userAnswer)
-              .genre === question.genre
-      )
-  );
+  const {answers, genre} = question;
 
-  return isCountCorrect && isQualityCorrect();
+  if (isCountCorrect) {
+    const isAllAnswersCorrect = userAnswers.every((userAnswer) => {
+      const answer = answers.find((ans) => ans.id === userAnswer);
+
+      return answer ? answer.genre === genre : false;
+    });
+
+    return isAllAnswersCorrect;
+  }
+
+  return false;
 };
 
 
@@ -40,10 +45,6 @@ export const initialState = {
 
 export const getStateWithErrors = (state, action) => {
   const errors = state.errorsAnswers + action.payload;
-
-  if (errors >= state.errorsMaxCount) {
-    return updateState({}, initialState);
-  }
 
   return updateState(state, {
     errorsAnswers: errors
@@ -66,11 +67,12 @@ export const getAnswerIsCorrect = (question, userAnswer) => {
 
 
 export const getGameStage = (state, action) => {
-  if (action.payload === GameType.WELCOME) {
-    return initialState;
-  }
-
-  return updateState(state, {
-    stage: action.payload,
-  });
+  return action.payload === GameType.GENRE
+    ? updateState(state, {
+      stage: action.payload,
+      errorsAnswers: 0
+    })
+    : updateState(state, {
+      stage: action.payload,
+    });
 };

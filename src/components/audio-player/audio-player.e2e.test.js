@@ -19,9 +19,12 @@ describe(`Test e2e AudioPlayer component`, () => {
         <AudioPlayer
           id={id}
           src = {src}
+          isLoading = {true}
           isPlaying = {false}
           onPlayTrack = {handlePlayTrack}
-        />
+        >
+          <audio />
+        </AudioPlayer>
     );
 
     audioPlayer.find(`.track__button`).simulate(`click`, handlePlayTrack());

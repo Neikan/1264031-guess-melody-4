@@ -23,7 +23,8 @@ describe(`Action creators work correctly`, () => {
       type: ActionType.CHANGE_GAME_SCREEN,
       payload: GameType.GENRE
     })).toEqual({
-      stage: GameType.GENRE
+      stage: GameType.GENRE,
+      errorsAnswers: 0
     });
 
     expect(reducer({
@@ -60,14 +61,6 @@ describe(`Action creators work correctly`, () => {
 
 
 describe(`Action creators work correctly`, () => {
-  test(`Action creator for going to WelcomeScreen returns correct action`, () => {
-    expect(ActionCreator.goToWelcomeScreen()).toEqual({
-      type: ActionType.CHANGE_GAME_SCREEN,
-      payload: GameType.WELCOME,
-    });
-  });
-
-
   test(`Action creator for going to ArtistScreen returns correct action`, () => {
     expect(ActionCreator.goToArtistScreen()).toEqual({
       type: ActionType.CHANGE_GAME_SCREEN,
@@ -80,6 +73,14 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.goToGenreScreen()).toEqual({
       type: ActionType.CHANGE_GAME_SCREEN,
       payload: GameType.GENRE,
+    });
+  });
+
+
+  test(`Action creator for going to WinScreen returns correct action`, () => {
+    expect(ActionCreator.goToWinScreen()).toEqual({
+      type: ActionType.CHANGE_GAME_SCREEN,
+      payload: GameType.WIN,
     });
   });
 

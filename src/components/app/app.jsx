@@ -7,12 +7,15 @@ import ArtistQuestionScreen from "../artist-question-screen/artist-question-scre
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import {GameType} from "../../consts/common-data.js";
 import {questionArtistType, questionGenreType} from "../../props/prop-types";
-import withAudioPlayer from "../../hoc/with-audio-player/with-audio-player";
-import {ActionCreator} from "../../reducer/reducer.js";
+import {ActionCreator} from "../../store/reducer.js";
 import {connect} from "react-redux";
+import withAudioPlayer from "../../hoc/with-active-player/with-active-player";
+import withUserAnswer from "../../hoc/with-user-answer/with-user-answer.js";
+import WinScreen from "../win-screen/win-screen.jsx";
+import GameOverScreen from "../game-over-screen/game-over-screen.jsx";
 
 
-const GenreQuestionScreenWrapped = withAudioPlayer(GenreQuestionScreen);
+const GenreQuestionScreenWrapped = withAudioPlayer(withUserAnswer(GenreQuestionScreen));
 const ArtistQuestionScreenWrapped = withAudioPlayer(ArtistQuestionScreen);
 
 class App extends PureComponent {
@@ -52,6 +55,12 @@ class App extends PureComponent {
    * @return {Object} экран игры
    */
   _renderGameScreen() {
+    const {errorsAnswers, errorsMaxCount} = this.props;
+
+    if (errorsAnswers >= errorsMaxCount) {
+      return this._renderGameOverScreen();
+    }
+
     switch (this.props.stage) {
       case GameType.WELCOME:
         return this._renderWelcomeScreen();
@@ -61,6 +70,9 @@ class App extends PureComponent {
 
       case GameType.ARTIST:
         return this._renderArtistQuestionScreen();
+
+      case GameType.WIN:
+        return this._renderWinScreen();
 
       default:
         return null;
@@ -73,12 +85,12 @@ class App extends PureComponent {
    * @return {Object} созданный компонент
    */
   _renderWelcomeScreen() {
-    const {errorsMaxCount, handleGameStart} = this.props;
+    const {errorsMaxCount, onGameStart} = this.props;
 
     return (
       <WelcomeScreen
         errorsMaxCount={errorsMaxCount}
-        onGameStart={handleGameStart}
+        onGameStart={onGameStart}
       />
     );
   }
@@ -89,7 +101,7 @@ class App extends PureComponent {
    * @return {Object} созданный компонент
    */
   _renderGenreQuestionScreen() {
-    const {questionGenre, handleGameArtistStage} = this.props;
+    const {questionGenre, onGameArtistStage} = this.props;
 
     return (
       <GameScreen
@@ -97,7 +109,7 @@ class App extends PureComponent {
       >
         <GenreQuestionScreenWrapped
           question={questionGenre}
-          onGameArtistStage={handleGameArtistStage}
+          onGameArtistStage={onGameArtistStage}
         />
       </GameScreen>
     );
@@ -109,7 +121,7 @@ class App extends PureComponent {
    * @return {Object} созданный компонент
    */
   _renderArtistQuestionScreen() {
-    const {questionArtist, handleGameEnd} = this.props;
+    const {questionArtist, onGameEnd} = this.props;
 
     return (
       <GameScreen
@@ -117,23 +129,57 @@ class App extends PureComponent {
       >
         <ArtistQuestionScreenWrapped
           question={questionArtist}
-          onGameEnd={handleGameEnd}
+          onGameEnd={onGameEnd}
         />
       </GameScreen>
+    );
+  }
+
+
+  /**
+   * Метод, обеспечивающий отрисовку компонента WinScreen
+   * @return {Object} созданный компонент
+   */
+  _renderWinScreen() {
+    const {errorsAnswers, onGameStart, questionArtist, questionGenre} = this.props;
+    const questionsCount = [questionArtist, questionGenre].length;
+
+    return (
+      <WinScreen
+        questionsCount={questionsCount}
+        errorsAnswers={errorsAnswers}
+        onGameStart={onGameStart}
+      />
+    );
+  }
+
+
+  /**
+   * Метод, обеспечивающий отрисовку компонента GameOverScreen
+   * @return {Object} созданный компонент
+   */
+  _renderGameOverScreen() {
+    const {onGameStart} = this.props;
+
+    return (
+      <GameOverScreen
+        onGameStart={onGameStart}
+      />
     );
   }
 }
 
 
 App.propTypes = {
-  errorsMaxCount: PropTypes.number.isRequired,
-  questionArtist: questionArtistType.isRequired,
-  questionGenre: questionGenreType.isRequired,
   stage: PropTypes.string.isRequired,
+  questionGenre: questionGenreType.isRequired,
+  questionArtist: questionArtistType.isRequired,
+  errorsAnswers: PropTypes.number.isRequired,
+  errorsMaxCount: PropTypes.number.isRequired,
 
-  handleGameStart: PropTypes.func.isRequired,
-  handleGameArtistStage: PropTypes.func.isRequired,
-  handleGameEnd: PropTypes.func.isRequired
+  onGameStart: PropTypes.func.isRequired,
+  onGameArtistStage: PropTypes.func.isRequired,
+  onGameEnd: PropTypes.func.isRequired
 };
 
 
@@ -147,19 +193,19 @@ const mapStateToProps = (state) => ({
 
 
 const mapDispatchToProps = (dispatch) => ({
-  handleGameStart() {
+  onGameStart() {
     dispatch(ActionCreator.goToGenreScreen());
   },
 
-  handleGameArtistStage(question, answer) {
+  onGameArtistStage(question, answer) {
     dispatch(ActionCreator.incrementErrors(question, answer));
     dispatch(ActionCreator.goToArtistScreen());
   },
 
-  handleGameEnd(question, answer) {
+  onGameEnd(question, answer) {
     dispatch(ActionCreator.incrementErrors(question, answer));
-    dispatch(ActionCreator.goToWelcomeScreen());
-  },
+    dispatch(ActionCreator.goToWinScreen());
+  }
 });
 
 

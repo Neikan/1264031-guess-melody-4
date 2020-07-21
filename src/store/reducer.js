@@ -9,11 +9,6 @@ const ActionType = {
 
 
 const ActionCreator = {
-  goToWelcomeScreen: () => ({
-    type: ActionType.CHANGE_GAME_SCREEN,
-    payload: GameType.WELCOME,
-  }),
-
   goToArtistScreen: () => ({
     type: ActionType.CHANGE_GAME_SCREEN,
     payload: GameType.ARTIST,
@@ -22,6 +17,11 @@ const ActionCreator = {
   goToGenreScreen: () => ({
     type: ActionType.CHANGE_GAME_SCREEN,
     payload: GameType.GENRE,
+  }),
+
+  goToWinScreen: () => ({
+    type: ActionType.CHANGE_GAME_SCREEN,
+    payload: GameType.WIN,
   }),
 
   incrementErrors: (question, userAnswer) => ({
